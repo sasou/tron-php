@@ -35,7 +35,7 @@ Support TRON's TRX and TRC20, which include functions such as address creation, 
 
 PHP8
 ``` php
-composer require fenguoz/tron-php
+composer require sasou/tron-php
 ```
 
 or PHP7

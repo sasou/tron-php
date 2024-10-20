@@ -35,7 +35,7 @@ TRON-PHP 目前支持波场的 TRX 和 TRC20 中常用生成地址，发起转�
 
 PHP8
 ``` php
-composer require fenguoz/tron-php
+composer require sasou/tron-php
 ```
 
 or PHP7
