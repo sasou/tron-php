@@ -16,7 +16,7 @@ class TRX implements WalletInterface
 {
     protected $_api;
 
-    protected $tron;
+    public $tron;
     
     public function __construct(Api $_api, array $config = [])
     {
