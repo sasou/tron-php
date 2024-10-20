@@ -92,4 +92,32 @@ class TRC20 extends TRX
             throw new TransactionException(hex2bin($response['result']['message']));
         }
     }
+
+    public function contractEnergy(Address $from, Address $to, float $amount)
+    {
+        $this->tron->setAddress($from->address);
+        $this->tron->setPrivateKey($from->privateKey);
+
+        $toFormat = Formatter::toAddressFormat($to->hexAddress);
+        try {
+            $amount = Utils::toMinUnitByDecimals($amount, $this->decimals);
+        } catch (InvalidArgumentException $e) {
+            throw new TronErrorException($e->getMessage());
+        }
+        $numberFormat = Formatter::toIntegerFormat($amount);
+
+        $body = $this->_api->post('/wallet/triggerconstantcontract', [
+            'owner_address' => $from->hexAddress,
+            'contract_address' => $this->contractAddress->hexAddress,
+            'function_selector' => 'transfer(address,uint256)',
+            'call_value' => 0,
+            'parameter' => "{$toFormat}{$numberFormat}",
+        ], true);
+        if (isset($body['result']['code'])) {
+            throw new TransactionException(hex2bin($body['result']['message']));
+        }
+
+        return $body;
+    }
+    
 }
